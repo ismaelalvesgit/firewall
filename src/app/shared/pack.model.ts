@@ -1,18 +1,16 @@
 export class Pack{
 
     constructor ( 
-        
-        public id:string,
 
-        public origem:string,
+        public ipOrigem:string,
 
-        public destino:string,
+        public ipDestino:string,
 
         public protocolo:string,
 
         public porta:string,
 
-        public dados:string,
+        public entrada:string,
 
     ){
 

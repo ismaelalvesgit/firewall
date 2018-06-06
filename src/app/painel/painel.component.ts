@@ -12,14 +12,42 @@ export class PainelComponent implements OnInit {
 
   public informacao:Pack[]
 
-  public indiceInfor:Pack
-
   public fileText;
 
+  public pack:Pack[] = [
+
+    { ipOrigem: "192.168.5.78", ipDestino: "192.168.5.78", protocolo: "TCP", porta: "21", entrada:"entrada"},
+    { ipOrigem: "192.168.5.78", ipDestino: "192.168.5.78", protocolo: "UDP", porta: "4444", entrada:"saida"},
+  
+  ]
+
   constructor() {
-    
+  
   }
   ngOnInit() {
+  }
+
+  public edit(i:number):void{
+    //this.pack[i].ipOrigem = ""
+    //this.pack[i].ipDestino = ""
+    //this.pack[i].protocolo = ""
+    //this.pack[i].porta = ""
+    //this.pack[i].entrada = ""
+  }
+
+  public onClickSubmit(data):void{
+
+    console.log(data.ipOrigem)
+  }
+
+  public del(i:number):void{
+
+    console.log(i)
+    this.pack.splice(i , 1)
+  }
+
+  public add():void{
+
   }
 
   public export():void{
@@ -44,79 +72,68 @@ export class PainelComponent implements OnInit {
       me.fileText = reader.result;
       me.fileText = me.fileText.split( ',');
       console.log(me.fileText)
+
+      
     }
   }
 
   public verifiacarPack():void{
-    
-    
-    let pack:Pack[] = [
+    let Arquivo:Pack[] = [
 
-      {id: this.fileText[0], origem: this.fileText[1], destino: this.fileText[2], protocolo: this.fileText[3], porta: this.fileText[4], dados:this.fileText[5]},
-      {id: this.fileText[6], origem: this.fileText[7], destino: this.fileText[8], protocolo: this.fileText[9], porta: this.fileText[10], dados:this.fileText[11]},
-      {id: this.fileText[12], origem: this.fileText[13], destino: this.fileText[14], protocolo: this.fileText[15], porta: this.fileText[16], dados:this.fileText[17]}
-
+      { ipOrigem: this.fileText[0], ipDestino: this.fileText[1], protocolo: this.fileText[2], porta: this.fileText[3], entrada:this.fileText[4]},
     ]
     
-    this.informacao = pack
+    this.informacao = Arquivo
 
     for(let i:number = 0 ;i < this.informacao.length ; i++){
 
-      if( this.informacao[i].id == '1' || this.informacao[i].id == '987' || this.informacao[i].id == '1523'){
+      if(this.informacao[i].ipOrigem == this.pack[i].ipOrigem){
+        
+        alert ('ip origem passou')
+        
+          if(this.informacao[i].ipDestino == this.pack[i].ipDestino){
 
-        alert('id passou')
+            alert('ip destino passou')
 
-        if(this.informacao[i].origem == '192.168.5.78'){
-          
-         alert ('ip origem passou')
-          
-            if(this.informacao[i].destino == '192.168.5.78'){
+              if( this.informacao[i].protocolo == this.pack[i].protocolo || this.informacao[i].protocolo == this.pack[i].protocolo || this.informacao[i].protocolo == this.pack[i].protocolo){
 
-              alert('ip destino passou')
+                alert('protocolo passou')
 
-                if( this.informacao[i].protocolo == 'TCP' || this.informacao[i].protocolo == 'UDP' || this.informacao[i].protocolo == 'ICMP'){
+                  if(this.informacao[i].porta ==this.pack[i].porta || this.informacao[i].porta ==this.pack[i].porta || this.informacao[i].porta ==this.pack[i].porta || this.informacao[i].porta == this.pack[i].porta){
 
-                  alert('protocolo passou')
+                    alert('porta passou')
 
-                    if(this.informacao[i].porta == '21' || this.informacao[i].porta == '4444' || this.informacao[i].porta == '1433' || this.informacao[i].porta == '55890'){
+                    if(this.informacao[i].entrada ==this.pack[i].entrada){
 
-                      alert('porta passou')
+                      alert('destino passou')
+
                     }else{
 
-                      alert('porta bloquiou')
-                    }
-
+                    alert('destino bloquiou')
+                    break
+                  }
                 }else{
-
-                  alert('protocolo bloquiou')
-                  this.informacao[i] = null
-                  break
-                }
-
+                alert('porta bloquiou')
+                break
+              }
             }else{
 
-              alert('ip destino bloquiou')
-              this.informacao[i] = null
-              break
-              
-            }
-
+            alert('protocolo bloquiou')
+            this.informacao[i] = null
+            break
+          }
         }else{
-          
-          alert('ip origem bloquiou')
-          this.informacao[i] = null
-          break
-        }
 
+          alert('ip destino bloquiou')
+          this.informacao[i] = null
+          break   
+        }
       }else{
         
-        alert('id bloquiou')
+        alert('ip origem bloquiou')
         this.informacao[i] = null
         break
       }
-
     }
-
   }
-
 }

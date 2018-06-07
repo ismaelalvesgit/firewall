@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Angular2Txt } from 'angular2-txt/Angular2-txt';
 import { Pack } from '../shared/pack.model';
+import { Regra } from '../shared/regra.model';
 
 @Component({
   selector: 'app-painel',
@@ -18,7 +19,7 @@ export class PainelComponent implements OnInit {
   public fileText;
   //informação dentro do arquivo
 
-  public painel:Pack[] = [
+  public painel:Regra[] = [
 
     { ipOrigem: "192.168.5.78", ipDestino: "192.168.5.78", protocolo: "TCP", porta: "21", entrada:"entrada"},
     { ipOrigem: "192.168.5.200", ipDestino: "192.168.5.78", protocolo: "UDP", porta: "4444", entrada:"saida"},
@@ -26,10 +27,10 @@ export class PainelComponent implements OnInit {
   ]
   // informações estáticas no painel
 
-  public editar:number;
+  public editar:number
   //pegar indice que vai ser editado
 
-
+  public mostrar:Regra = this.painel[this.editar]
   /* Metodos */
   
   constructor() { 
@@ -50,31 +51,54 @@ export class PainelComponent implements OnInit {
 
   public editarSalva(editar){
 
-    console.log(editar)
+    let ipOrigem = editar.value.ipOrigem
 
-    this.painel[this.editar].ipOrigem = editar.value.ipOrigem
+    let ipDestino = editar.value.ipDestino
 
-    this.painel[this.editar].ipDestino = editar.value.ipDestino
+    let protocolo = editar.value.protocolo
+
+    let porta = editar.value.porta
+
+    let entrada = editar.value.entrada
+
+
+
+    this.painel[this.editar].ipOrigem = ipOrigem
+
+    this.painel[this.editar].ipDestino = ipDestino
     
-    this.painel[this.editar].protocolo = editar.value.protocolo
+    this.painel[this.editar].protocolo = protocolo
 
-    this.painel[this.editar].porta = editar.value.porta
+    this.painel[this.editar].porta = porta
 
-    this.painel[this.editar].entrada = editar.value.entrada
+    this.painel[this.editar].entrada =entrada
   }
 
   public adicionar(add){
-    
+
+    let ipOrigem = add.value.ipOrigem
+
+    let ipDestino = add.value.ipDestino
+
+    let protocolo = add.value.protocolo
+
+    let porta = add.value.porta
+
+    let entrada = add.value.entrada
+
+    let indice  = this.painel.length
+
+    this.painel[indice] = new Pack(ipOrigem, ipDestino, protocolo, porta, entrada )
   }
 
   public export():void{
 
-    for(let i:number = 0; i< this.informacao.length; i++ ){
+    for(let i:number = 0; i< this.painel.length; i++ ){
     
-      this.informacao[i]
+      this.painel[i]
     }
      
-    new Angular2Txt(this.informacao, 'PACOTE999');
+    new Angular2Txt(this.painel, 'PACOTE999');
   }
 
   public getFile(event):void{
@@ -94,63 +118,59 @@ export class PainelComponent implements OnInit {
     }
   }
 
-  public verifiacarpainel():void{
+  public verifiacarRegras():void{
+  
+    let ipOrigem = false
+
+    let ipDestino = false
+
+    let protocolo = false
+
+    let porta = false
+
+    let entrada = false
+    
     let Arquivo:Pack[] = [
 
-      { ipOrigem: this.fileText[0], ipDestino: this.fileText[1], protocolo: this.fileText[2], porta: this.fileText[3], entrada:this.fileText[4]},
+      { ipOrigem: this.fileText[0], ipDestino: this.fileText[1], protocolo: this.fileText[2], porta: this.fileText[3], entrada: this.fileText[4]},
+      { ipOrigem: this.fileText[5], ipDestino: this.fileText[6], protocolo: this.fileText[7], porta:this.fileText[8], entrada: this.fileText[9]}
     ]
+    //informações vinda do pacote sendo atribuidas a variavel Arquivo que e um array de objetos
     
     this.informacao = Arquivo
+    //Atributo da class pegado a informação do arquivo
 
     for(let i:number = 0 ;i < this.informacao.length ; i++){
 
       if(this.informacao[i].ipOrigem == this.painel[i].ipOrigem){
-        
-        alert ('ip origem passou')
-        
-          if(this.informacao[i].ipDestino == this.painel[i].ipDestino){
 
-            alert('ip destino passou')
+        ipOrigem = true
+      }     
+      if(this.informacao[i].ipDestino == this.painel[i].ipDestino){
 
-              if( this.informacao[i].protocolo == this.painel[i].protocolo || this.informacao[i].protocolo == this.painel[i].protocolo || this.informacao[i].protocolo == this.painel[i].protocolo){
+        ipDestino = true
+      }
+      if(this.informacao[i].protocolo == this.painel[i].protocolo){
 
-                alert('protocolo passou')
+         protocolo = true
+      }
+      if(this.informacao[i].porta == this.painel[i].porta){
 
-                  if(this.informacao[i].porta ==this.painel[i].porta || this.informacao[i].porta ==this.painel[i].porta || this.informacao[i].porta ==this.painel[i].porta || this.informacao[i].porta == this.painel[i].porta){
+         porta = true
+      }
+      if(this.informacao[i].entrada == this.painel[i].entrada){
 
-                    alert('porta passou')
+        entrada = true
+      }
+      console.log(ipOrigem, ipDestino,protocolo, porta, entrada)
+      if( ipOrigem && ipDestino && protocolo && porta && entrada ){
 
-                    if(this.informacao[i].entrada ==this.painel[i].entrada){
-
-                      alert('destino passou')
-
-                    }else{
-
-                    alert('destino bloquiou')
-                    break
-                  }
-                }else{
-                alert('porta bloquiou')
-                break
-              }
-            }else{
-
-            alert('protocolo bloquiou')
-            this.informacao[i] = null
-            break
-          }
-        }else{
-
-          alert('ip destino bloquiou')
-          this.informacao[i] = null
-          break   
-        }
+        alert('pacote passou pelas regras')
       }else{
-        
-        alert('ip origem bloquiou')
-        this.informacao[i] = null
+
+        alert('pacote não passou pelas regras')
         break
       }
-    }
+    }    
   }
 }

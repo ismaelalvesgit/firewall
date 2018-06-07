@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Pack } from '../shared/pack.model';
 import { Angular2Txt } from 'angular2-txt/Angular2-txt';
+import { Pack } from '../shared/pack.model';
 
 @Component({
   selector: 'app-painel',
@@ -10,44 +10,61 @@ import { Angular2Txt } from 'angular2-txt/Angular2-txt';
 })
 export class PainelComponent implements OnInit {
 
+  /* Atributos da class */
+
   public informacao:Pack[]
+  //espera informação do arquivo
 
   public fileText;
+  //informação dentro do arquivo
 
-  public pack:Pack[] = [
+  public painel:Pack[] = [
 
     { ipOrigem: "192.168.5.78", ipDestino: "192.168.5.78", protocolo: "TCP", porta: "21", entrada:"entrada"},
-    { ipOrigem: "192.168.5.78", ipDestino: "192.168.5.78", protocolo: "UDP", porta: "4444", entrada:"saida"},
+    { ipOrigem: "192.168.5.200", ipDestino: "192.168.5.78", protocolo: "UDP", porta: "4444", entrada:"saida"},
   
   ]
+  // informações estáticas no painel
 
-  constructor() {
+  public editar:number;
+  //pegar indice que vai ser editado
+
+
+  /* Metodos */
   
+  constructor() { 
+   
   }
   ngOnInit() {
   }
 
-  public edit(i:number):void{
-    //this.pack[i].ipOrigem = ""
-    //this.pack[i].ipDestino = ""
-    //this.pack[i].protocolo = ""
-    //this.pack[i].porta = ""
-    //this.pack[i].entrada = ""
-  }
-
-  public onClickSubmit(data):void{
-
-    console.log(data.ipOrigem)
-  }
-
   public del(i:number):void{
 
-    console.log(i)
-    this.pack.splice(i , 1)
+    this.painel.splice(i , 1)
   }
 
-  public add():void{
+  public getEditar(i:number):void{
+   
+    this.editar = i
+  }
 
+  public editarSalva(editar){
+
+    console.log(editar)
+
+    this.painel[this.editar].ipOrigem = editar.value.ipOrigem
+
+    this.painel[this.editar].ipDestino = editar.value.ipDestino
+    
+    this.painel[this.editar].protocolo = editar.value.protocolo
+
+    this.painel[this.editar].porta = editar.value.porta
+
+    this.painel[this.editar].entrada = editar.value.entrada
+  }
+
+  public adicionar(add){
+    
   }
 
   public export():void{
@@ -77,7 +94,7 @@ export class PainelComponent implements OnInit {
     }
   }
 
-  public verifiacarPack():void{
+  public verifiacarpainel():void{
     let Arquivo:Pack[] = [
 
       { ipOrigem: this.fileText[0], ipDestino: this.fileText[1], protocolo: this.fileText[2], porta: this.fileText[3], entrada:this.fileText[4]},
@@ -87,23 +104,23 @@ export class PainelComponent implements OnInit {
 
     for(let i:number = 0 ;i < this.informacao.length ; i++){
 
-      if(this.informacao[i].ipOrigem == this.pack[i].ipOrigem){
+      if(this.informacao[i].ipOrigem == this.painel[i].ipOrigem){
         
         alert ('ip origem passou')
         
-          if(this.informacao[i].ipDestino == this.pack[i].ipDestino){
+          if(this.informacao[i].ipDestino == this.painel[i].ipDestino){
 
             alert('ip destino passou')
 
-              if( this.informacao[i].protocolo == this.pack[i].protocolo || this.informacao[i].protocolo == this.pack[i].protocolo || this.informacao[i].protocolo == this.pack[i].protocolo){
+              if( this.informacao[i].protocolo == this.painel[i].protocolo || this.informacao[i].protocolo == this.painel[i].protocolo || this.informacao[i].protocolo == this.painel[i].protocolo){
 
                 alert('protocolo passou')
 
-                  if(this.informacao[i].porta ==this.pack[i].porta || this.informacao[i].porta ==this.pack[i].porta || this.informacao[i].porta ==this.pack[i].porta || this.informacao[i].porta == this.pack[i].porta){
+                  if(this.informacao[i].porta ==this.painel[i].porta || this.informacao[i].porta ==this.painel[i].porta || this.informacao[i].porta ==this.painel[i].porta || this.informacao[i].porta == this.painel[i].porta){
 
                     alert('porta passou')
 
-                    if(this.informacao[i].entrada ==this.pack[i].entrada){
+                    if(this.informacao[i].entrada ==this.painel[i].entrada){
 
                       alert('destino passou')
 

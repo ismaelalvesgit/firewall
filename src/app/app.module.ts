@@ -6,6 +6,7 @@ import { PainelComponent } from './painel/painel.component';
 import { RodapeComponent } from './rodape/rodape.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

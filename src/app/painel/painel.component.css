@@ -5,3 +5,11 @@
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
 }
+#sortable { 
+  font-size: 25px;
+  left: 0;
+  right: 0;
+}
+thead{
+  font-size: 24px;
+}

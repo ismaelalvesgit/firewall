@@ -28,6 +28,8 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "src/jquery-ui.js",
+              "src/DropDrag.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Angular2Txt } from 'angular2-txt/Angular2-txt';
 import { Pack } from '../shared/pack.model';
 import { Regra } from '../shared/regra.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-painel',
@@ -12,6 +13,10 @@ import { Regra } from '../shared/regra.model';
 export class PainelComponent implements OnInit {
 
   /* Atributos da class */
+
+  @ViewChild('editar') public formEditar: NgForm
+
+  @ViewChild('add') public formAdd: NgForm
 
   public informacao:Pack[]
   //espera informação do arquivo
@@ -49,17 +54,17 @@ export class PainelComponent implements OnInit {
     this.editar = i
   }
 
-  public editarSalva(editar){
+  public editarSalva(){
 
-    let ipOrigem = editar.value.ipOrigem
+    let ipOrigem = this.formEditar.value.ipOrigem
 
-    let ipDestino = editar.value.ipDestino
+    let ipDestino = this.formEditar.value.ipDestino
 
-    let protocolo = editar.value.protocolo
+    let protocolo = this.formEditar.value.protocolo
 
-    let porta = editar.value.porta
+    let porta = this.formEditar.value.porta
 
-    let entrada = editar.value.entrada
+    let entrada = this.formEditar.value.entrada
 
 
 
@@ -71,24 +76,24 @@ export class PainelComponent implements OnInit {
 
     this.painel[this.editar].porta = porta
 
-    this.painel[this.editar].entrada =entrada
+    this.painel[this.editar].entrada = entrada
   }
 
-  public adicionar(add){
+  public adicionar(){
 
-    let ipOrigem = add.value.ipOrigem
+    let ipOrigem = this.formAdd.value.ipOrigem
 
-    let ipDestino = add.value.ipDestino
+    let ipDestino = this.formAdd.value.ipDestino
 
-    let protocolo = add.value.protocolo
+    let protocolo = this.formAdd.value.protocolo
 
-    let porta = add.value.porta
+    let porta = this.formAdd.value.porta
 
-    let entrada = add.value.entrada
+    let entrada = this.formAdd.value.entrada
 
     let indice  = this.painel.length
 
-    this.painel[indice] = new Pack(ipOrigem, ipDestino, protocolo, porta, entrada )
+    this.painel[indice] = new Regra(ipOrigem, ipDestino, protocolo, porta, entrada )
   }
 
   public export():void{

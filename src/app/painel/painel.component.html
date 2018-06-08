@@ -2,268 +2,275 @@
 <div class="container jumbotron">
   <div class="row">
     <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Ip-origem</th>
-          <th scope="col">Ip-Destino</th>
-          <th scope="col">Protocolo</th>
-          <th scope="col">Porta</th>
-          <th scope="col">Destino</th>
-          <th scope="col">ação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let packs of painel; index as i">
-          <th scope="row"></th>
-          <td>{{packs.ipOrigem}}</td>
-          <td>{{packs.ipDestino}}</td>
-          <td>{{packs.protocolo}}</td>
-          <td>{{packs.porta}}</td>
-          <td>{{packs.entrada}}</td>
-          <td>
-            <button  (click)="getEditar(i)" data-toggle="modal" data-target="#editar">edit</button>
-              <!-- Modal -->
-              <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="editar">Editar</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <form #editar="ngForm" (ngSubmit)="editarSalva(editar)">
-                              
-                              <div class="form-group">
-                                  <label for="ipOrigem">Ip origem</label>
-                                  <input type="text" class="form-control" 
-                                  id="ipOrigem" name="ipOrigem" 
-                                  ngModel required 
-                                  #ipOrigem ="ngModel">
-                              </div>
-                              
-                              <div *ngIf="ipOrigem.invalid && (ipOrigem.dirty || ipOrigem.touched)"
-                                class="alert alert-danger">
+        <thead>
+          <tr class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+              <th scope="col">#</th>
+              <th scope="col">Ip-origem</th>
+              <th scope="col">Ip-Destino</th>
+              <th scope="col">Protocolo</th>
+              <th scope="col">Porta</th>
+              <th scope="col">Destino</th>
+              <th scope="col">ação</th>
+            </div>
+          </tr>
+        </thead>
+        <tbody class="row">
+          <div class="col-md-12 d-flex justify-content-center">
+            <tr id="sortable">
+                <div *ngFor="let item of painel; index as i">
+                <th scope="row"></th>
+                <td>{{item.ipOrigem}}</td>
+                <td>{{item.ipDestino}}</td>
+                <td>{{item.protocolo}}</td>
+                <td>{{item.porta}}</td>
+                <td>{{item.entrada}}</td>
+                <td>
 
-                              <div *ngIf="ipOrigem.errors.required">
-                                Campo não pode estar em branco.
-                              </div>
-                              </div>
-
-                              <div class="form-group">
-                                  <label for="ipDestino">Ip destino</label>
-                                  <input type="text" class="form-control" 
-                                  id="ipDestino" name="ipDestino" 
-                                  ngModel required 
-                                  #ipDestino ="ngModel">
-                              </div>
-
-                              <div *ngIf="ipDestino.invalid && (ipDestino.dirty || ipDestino.touched)"
-                                class="alert alert-danger">
-
-                              <div *ngIf="ipDestino.errors.required">
-                                Campo não pode estar em branco.
-                              </div>
-                              </div>
-
-                              <div class="form-group">
-                                  <label for="protocolo">Protocolo</label>
-                                  <input type="text" class="form-control" 
-                                  id="protocolo" name="protocolo" 
-                                  ngModel required 
-                                  minlength="3"
-                                  maxlength="3"
-                                  #protocolo ="ngModel">
-                              </div>
-
-                              <div *ngIf="protocolo.invalid && (protocolo.dirty || protocolo.touched)"
-                                class="alert alert-danger">
-
-                              <div *ngIf="protocolo.errors.required">
-                                Campo não pode estar em branco.
-                              </div>
-                              <div *ngIf="protocolo.errors.minlength">
-                                  Protocolo tem que ter no minimo 3 caracteres
-                              </div>
-                              </div>
-
-                              <div class="form-group">
-                                  <label for="porta">Porta</label>
-                                  <input type="text" class="form-control" 
-                                  id="porta" name="porta" 
-                                  ngModel required 
-                                  maxlength="5"
-                                  #porta ="ngModel">
-                              </div>
-
-                              <div *ngIf="porta.invalid && (porta.dirty || porta.touched)"
-                                class="alert alert-danger">
-
-                              <div *ngIf="porta.errors.required">
-                                Campo não pode estar em branco.
-                              </div>
-                              </div>
-
-                              <div class="form-group">
-                                  <label for="entrada">Entrada</label>
-                                  <input type="text" class="form-control" 
-                                  id="entrada" name="entrada" 
-                                  ngModel required 
-                                  #entrada ="ngModel">
-                              </div>
-
-                              <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)"
-                                class="alert alert-danger">
-
-                              <div *ngIf="entrada.errors.required">
-                                Campo não pode estar em branco.
-                              </div>
-                              </div>
-
-                              <div class="row">
-                                  <div class="col-md-6"> <label class="btn btn-secondary" (click)="editar.resetForm({})"> Reset </label> </div>
-                                  <div class="col-md-6 d-flex justify-content-end" > <button type="submit" class="btn btn-primary" [disabled]="editar.invalid"> Salvar </button> </div>
-                              </div>
-                          </form>
+                    <button class="btn btn-outline-success" (click)="getEditar(i)" data-toggle="modal" data-target="#editar">edit</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="editar">Editar</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
                           </div>
+                          <div class="modal-body">
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <form #editar="ngForm">
+                                    
+                                    <div class="form-group">
+                                        <label for="ipOrigem">Ip origem</label>
+                                        <input type="text" class="form-control" 
+                                        id="ipOrigem" name="ipOrigem" 
+                                        ngModel required 
+                                        #ipOrigem ="ngModel">
+                                    </div>
+                                    
+                                    <div *ngIf="ipOrigem.invalid && (ipOrigem.dirty || ipOrigem.touched)"
+                                      class="alert alert-danger">
+      
+                                    <div *ngIf="ipOrigem.errors.required">
+                                      Campo não pode estar em branco.
+                                    </div>
+                                    </div>
+      
+                                    <div class="form-group">
+                                        <label for="ipDestino">Ip destino</label>
+                                        <input type="text" class="form-control" 
+                                        id="ipDestino" name="ipDestino" 
+                                        ngModel required 
+                                        #ipDestino ="ngModel">
+                                    </div>
+      
+                                    <div *ngIf="ipDestino.invalid && (ipDestino.dirty || ipDestino.touched)"
+                                      class="alert alert-danger">
+      
+                                    <div *ngIf="ipDestino.errors.required">
+                                      Campo não pode estar em branco.
+                                    </div>
+                                    </div>
+      
+                                    <div class="form-group">
+                                        <label for="protocolo">Protocolo</label>
+                                        <input type="text" class="form-control" 
+                                        id="protocolo" name="protocolo" 
+                                        ngModel required 
+                                        minlength="3"
+                                        maxlength="3"
+                                        #protocolo ="ngModel">
+                                    </div>
+      
+                                    <div *ngIf="protocolo.invalid && (protocolo.dirty || protocolo.touched)"
+                                      class="alert alert-danger">
+      
+                                    <div *ngIf="protocolo.errors.required">
+                                      Campo não pode estar em branco.
+                                    </div>
+                                    <div *ngIf="protocolo.errors.minlength">
+                                        Protocolo tem que ter no minimo 3 caracteres
+                                    </div>
+                                    </div>
+      
+                                    <div class="form-group">
+                                        <label for="porta">Porta</label>
+                                        <input type="text" class="form-control" 
+                                        id="porta" name="porta" 
+                                        ngModel required 
+                                        maxlength="5"
+                                        #porta ="ngModel">
+                                    </div>
+      
+                                    <div *ngIf="porta.invalid && (porta.dirty || porta.touched)"
+                                      class="alert alert-danger">
+      
+                                    <div *ngIf="porta.errors.required">
+                                      Campo não pode estar em branco.
+                                    </div>
+                                    </div>
+      
+                                    <div class="form-group">
+                                        <label for="entrada">Destino</label>
+                                        <input type="text" class="form-control" 
+                                        id="entrada" name="entrada" 
+                                        ngModel required 
+                                        #entrada ="ngModel">
+                                    </div>
+      
+                                    <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)"
+                                      class="alert alert-danger">
+      
+                                    <div *ngIf="entrada.errors.required">
+                                      Campo não pode estar em branco.
+                                    </div>
+                                    </div>
+      
+                                    <div class="row">
+                                        <div class="col-md-6"> <label class="btn btn-secondary" (click)="editar.resetForm({})"> Reset </label> </div>
+                                        <div class="col-md-6 d-flex justify-content-end" > <button type="submit" class="btn btn-primary" [disabled]="editar.invalid" data-dismiss="modal" (click)="editarSalva()"> Salvar </button> </div>
+                                    </div>
+                                </form>
+                                </div>
+                              </div>
+                            </div>  
+                          </div>
+      
                         </div>
-                      </div>  
+                      </div>
                     </div>
+                  <button class="btn btn-outline-danger ml-3" (click)="del(i)">del</button>
 
-                  </div>
+                </td>  
                 </div>
-              </div>
-            <button (click)="del(i)">del</button>
-          </td>
-          <td>
-        </tr>
-      </tbody>
+              </tr>
+          </div>     
+        </tbody>
     </table>
   </div>
   <div class="row">
-    <div class="col-md-6 d-flex justify-content-start">
-      <button class="btn btn-primary" data-toggle="modal" data-target="#adicionar">Adicionar</button>
-      <!-- Modal -->
-      <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="adicionar">Adicionar</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <!-- From  -->
-              <form #add="ngForm" (ngSubmit)="adicionar(add)">
-                <div class="form-group">
-                  <label for="ipOrigem">Ip origem</label>
-                  <input type="text" class="form-control" 
-                  id="ipOrigem" name="ipOrigem" 
-                  ngModel required 
-                  #ipOrigem ="ngModel">
+      <div class="col-md-6 d-flex justify-content-start">
+        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#adicionar">Adicionar</button>
+        <!-- Modal -->
+        <div class="modal fade" id="adicionar" tabindex="-1" role="dialog" aria-labelledby="adicionar" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="adicionar">Adicionar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              
-              <div *ngIf="ipOrigem.invalid && (ipOrigem.dirty || ipOrigem.touched)"
-                class="alert alert-danger">
-
-              <div *ngIf="ipOrigem.errors.required">
-                Campo não pode estar em branco.
-              </div>
-              </div>
-
-              <div class="form-group">
-                  <label for="ipDestino">Ip destino</label>
-                  <input type="text" class="form-control" 
-                  id="ipDestino" name="ipDestino" 
-                  ngModel required 
-                  #ipDestino ="ngModel">
-              </div>
-
-              <div *ngIf="ipDestino.invalid && (ipDestino.dirty || ipDestino.touched)"
-                class="alert alert-danger">
-
-              <div *ngIf="ipDestino.errors.required">
-                Campo não pode estar em branco.
-              </div>
-              </div>
-
-              <div class="form-group">
-                  <label for="protocolo">Protocolo</label>
-                  <input type="text" class="form-control" 
-                  id="protocolo" name="protocolo" 
-                  ngModel required 
-                  minlength="3"
-                  maxlength="3"
-                  #protocolo ="ngModel">
-              </div>
-
-              <div *ngIf="protocolo.invalid && (protocolo.dirty || protocolo.touched)"
-                class="alert alert-danger">
-
-              <div *ngIf="protocolo.errors.required">
-                Campo não pode estar em branco.
-              </div>
-              <div *ngIf="protocolo.errors.minlength">
-                  Protocolo tem que ter no minimo 3 caracteres
-              </div>
-              </div>
-
-              <div class="form-group">
-                  <label for="porta">Porta</label>
-                  <input type="text" class="form-control" 
-                  id="porta" name="porta" 
-                  ngModel required 
-                  maxlength="5"
-                  #porta ="ngModel">
-              </div>
-
-              <div *ngIf="porta.invalid && (porta.dirty || porta.touched)"
-                class="alert alert-danger">
-
-              <div *ngIf="porta.errors.required">
-                Campo não pode estar em branco.
-              </div>
-              </div>
-
-              <div class="form-group">
-                  <label for="entrada">Entrada</label>
-                  <input type="text" class="form-control" 
-                  id="entrada" name="entrada" 
-                  ngModel required 
-                  #entrada ="ngModel">
-              </div>
-
-              <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)"
-                class="alert alert-danger">
-
-              <div *ngIf="entrada.errors.required">
-                Campo não pode estar em branco.
-              </div>
-              </div>
-
-                <div class="row">
-                    <div class="col-md-6"> <label class="btn btn-secondary" (click)="add.resetForm({})"> Reset </label> </div>
-                    <div class="col-md-6 d-flex justify-content-end" > <button type="submit" class="btn btn-primary" [disabled]="add.invalid"> Salvar </button> </div>
+              <div class="modal-body">
+                <!-- From  -->
+                <form #add="ngForm">
+                  <div class="form-group">
+                    <label for="ipOrigem">Ip origem</label>
+                    <input type="text" class="form-control" 
+                    id="ipOrigem" name="ipOrigem" 
+                    ngModel required 
+                    #ipOrigem ="ngModel">
                 </div>
-              </form>
-              <!--  fim - Form -->
+                
+                <div *ngIf="ipOrigem.invalid && (ipOrigem.dirty || ipOrigem.touched)"
+                  class="alert alert-danger">
+  
+                <div *ngIf="ipOrigem.errors.required">
+                  Campo não pode estar em branco.
+                </div>
+                </div>
+  
+                <div class="form-group">
+                    <label for="ipDestino">Ip destino</label>
+                    <input type="text" class="form-control" 
+                    id="ipDestino" name="ipDestino" 
+                    ngModel required 
+                    #ipDestino ="ngModel">
+                </div>
+  
+                <div *ngIf="ipDestino.invalid && (ipDestino.dirty || ipDestino.touched)"
+                  class="alert alert-danger">
+  
+                <div *ngIf="ipDestino.errors.required">
+                  Campo não pode estar em branco.
+                </div>
+                </div>
+  
+                <div class="form-group">
+                    <label for="protocolo">Protocolo</label>
+                    <input type="text" class="form-control" 
+                    id="protocolo" name="protocolo" 
+                    ngModel required 
+                    minlength="3"
+                    maxlength="3"
+                    #protocolo ="ngModel">
+                </div>
+  
+                <div *ngIf="protocolo.invalid && (protocolo.dirty || protocolo.touched)"
+                  class="alert alert-danger">
+  
+                <div *ngIf="protocolo.errors.required">
+                  Campo não pode estar em branco.
+                </div>
+                <div *ngIf="protocolo.errors.minlength">
+                    Protocolo tem que ter no minimo 3 caracteres
+                </div>
+                </div>
+  
+                <div class="form-group">
+                    <label for="porta">Porta</label>
+                    <input type="text" class="form-control" 
+                    id="porta" name="porta" 
+                    ngModel required 
+                    maxlength="5"
+                    #porta ="ngModel">
+                </div>
+  
+                <div *ngIf="porta.invalid && (porta.dirty || porta.touched)"
+                  class="alert alert-danger">
+  
+                <div *ngIf="porta.errors.required">
+                  Campo não pode estar em branco.
+                </div>
+                </div>
+  
+                <div class="form-group">
+                    <label for="entrada">Destino</label>
+                    <input type="text" class="form-control" 
+                    id="entrada" name="entrada" 
+                    ngModel required 
+                    #entrada ="ngModel">
+                </div>
+  
+                <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)"
+                  class="alert alert-danger">
+  
+                <div *ngIf="entrada.errors.required">
+                  Campo não pode estar em branco.
+                </div>
+                </div>
+  
+                  <div class="row">
+                      <div class="col-md-6"> <label class="btn btn-secondary" (click)="add.resetForm({})"> Reset </label> </div>
+                      <div class="col-md-6 d-flex justify-content-end" > <button type="submit" class="btn btn-primary" [disabled]="add.invalid" data-dismiss="modal" (click)="adicionar()"> Salvar </button> </div>
+                  </div>
+                </form>
+                <!--  fim - Form -->
+              </div>
             </div>
-          </div>
+        </div>
+        <!-- fim - Modal -->
       </div>
-      <!-- fim - Modal -->
     </div>
-  </div>
-  <div class="col-md-6 d-flex justify-content-end">
-    <label class="btn btn-primary"><input hidden type="file" accept=".txt" (change) = "getFile($event)">Import</label>
-    <button class="btn btn-primary ml-3 mr-3" (click) = "verifiacarRegras()"> verificar </button>
-    <button class="btn btn-primary" (click) = "export()">Export</button>
-  </div>
-    
-  </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <label class="btn btn-outline-primary"><input hidden type="file" accept=".txt" (change) = "getFile($event)">Import</label>
+      <button class="btn btn-outline-primary ml-3 mr-3" (click) = "verifiacarRegras()"> verificar </button>
+      <button class="btn btn-outline-primary" (click) = "export()">Export</button>
+    </div>
+
+  </div>    
 </div>

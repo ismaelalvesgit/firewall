@@ -26,7 +26,6 @@
                 <td>{{item.porta}}</td>
                 <td>{{item.entrada}}</td>
                 <td>
-
                     <button class="btn btn-outline-success" (click)="getEditar(i)" data-toggle="modal" data-target="#editar">edit</button>
                     <!-- Modal -->
                     <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
@@ -49,42 +48,44 @@
                                         <input type="text" class="form-control" 
                                         id="ipOrigem" name="ipOrigem" 
                                         ngModel required 
-                                        maxlength="15"
-                                        onkeypress="mascara(this)"                                
+                                        maxlength="15" 
+                                        (keyup)="editarValidOrigem($event)"                             
                                         #ipOrigem ="ngModel">
                                     </div>
-                                    
+                                    <div *ngIf="editarIpOrigem == true" class=" alert alert-danger" >
+                                      IP Inválido
+                                    </div>
                                     <div *ngIf="ipOrigem.invalid && (ipOrigem.dirty || ipOrigem.touched)"
                                       class="alert alert-danger">
-      
+                    
                                     <div *ngIf="ipOrigem.errors.required">
                                       Campo não pode estar em branco.
                                     </div>
-
-                                    <div *ngIf="name.errors.forbiddenName">
-                                      Name cannot be Bob.
                                     </div>
-                                    
-                                    </div>
-      
+                    
                                     <div class="form-group">
                                         <label for="ipDestino">Ip destino</label>
                                         <input type="text" class="form-control" 
                                         id="ipDestino" name="ipDestino"
                                         maxlength="15"
-                                        onkeypress="mascara(this)" 
-                                        ngModel required 
+                                        ngModel required
+                                        
+                                        (keyup)="editarValidDestino($event)" 
                                         #ipDestino ="ngModel">
                                     </div>
-      
+                                    
+                                    <div *ngIf="editarIpDestino == true" class=" alert alert-danger" >
+                                        IP Inválido
+                                    </div>
+
                                     <div *ngIf="ipDestino.invalid && (ipDestino.dirty || ipDestino.touched)"
                                       class="alert alert-danger">
-      
+                    
                                     <div *ngIf="ipDestino.errors.required">
                                       Campo não pode estar em branco.
                                     </div>
                                     </div>
-      
+                    
                                     <div class="form-group">
                                         <label for="protocolo">Protocolo</label>
                                         <input type="text" class="form-control" 
@@ -94,10 +95,10 @@
                                         maxlength="3"
                                         #protocolo ="ngModel">
                                     </div>
-      
+                    
                                     <div *ngIf="protocolo.invalid && (protocolo.dirty || protocolo.touched)"
                                       class="alert alert-danger">
-      
+                    
                                     <div *ngIf="protocolo.errors.required">
                                       Campo não pode estar em branco.
                                     </div>
@@ -105,7 +106,7 @@
                                         Protocolo tem que ter no minimo 3 caracteres
                                     </div>
                                     </div>
-      
+                    
                                     <div class="form-group">
                                         <label for="porta">Porta</label>
                                         <input type="text" class="form-control" 
@@ -114,15 +115,15 @@
                                         maxlength="5"
                                         #porta ="ngModel">
                                     </div>
-      
+                    
                                     <div *ngIf="porta.invalid && (porta.dirty || porta.touched)"
                                       class="alert alert-danger">
-      
+                    
                                     <div *ngIf="porta.errors.required">
                                       Campo não pode estar em branco.
                                     </div>
                                     </div>
-      
+                    
                                     <div class="form-group">
                                         <label for="entrada">Destino</label>
                                         <input type="text" class="form-control" 
@@ -130,30 +131,33 @@
                                         ngModel required 
                                         #entrada ="ngModel">
                                     </div>
-      
+                    
                                     <div *ngIf="entrada.invalid && (entrada.dirty || entrada.touched)"
                                       class="alert alert-danger">
-      
+                    
                                     <div *ngIf="entrada.errors.required">
                                       Campo não pode estar em branco.
                                     </div>
                                     </div>
-      
+                    
                                     <div class="row">
                                         <div class="col-md-6"> <label class="btn btn-secondary" (click)="editar.resetForm({})"> Reset </label> </div>
-                                        <div class="col-md-6 d-flex justify-content-end" > <button type="submit" class="btn btn-primary" [disabled]="editar.invalid" data-dismiss="modal" (click)="editarSalva()"> Salvar </button> </div>
+                                        <div class="col-md-6 d-flex justify-content-end" > 
+                                          <button type="submit" class="btn btn-primary"  
+                                          [disabled]="editarIpOrigem"
+                                          [disabled]="editar.invalid"
+                                          data-dismiss="modal" (click)="editarSalva()"> Salvar </button> </div>
                                     </div>
                                 </form>
                                 </div>
                               </div>
                             </div>  
                           </div>
-      
+                    
                         </div>
                       </div>
                     </div>
-                  <button class="btn btn-outline-danger ml-3" (click)="del(i)">del</button>
-
+                    <button class="btn btn-outline-danger ml-3" (click)="del(i)">del</button>
                 </td>  
                 </div>
               </tr>
@@ -183,10 +187,14 @@
                     id="ipOrigem" name="ipOrigem" 
                     ngModel required 
                     maxlength="15"
-                    onkeypress="mascara(this)"
+                    (keyup)="addValidOrigem($event)"
                     #ipOrigem ="ngModel">
                 </div>
                 
+                <div *ngIf="addIpOrigem == true" class=" alert alert-danger" >
+                    IP Inválido
+                </div>
+
                 <div *ngIf="ipOrigem.invalid && (ipOrigem.dirty || ipOrigem.touched)"
                   class="alert alert-danger">
   
@@ -201,10 +209,14 @@
                     id="ipDestino" name="ipDestino" 
                     ngModel required 
                     maxlength="15"
-                    onkeypress="mascara(this)"
+                    (keyup)="addValidDestino($event)"
                     #ipDestino ="ngModel">
                 </div>
-  
+                
+                <div *ngIf="addIpDestino == true" class=" alert alert-danger" >
+                    IP Inválido
+                </div>
+
                 <div *ngIf="ipDestino.invalid && (ipDestino.dirty || ipDestino.touched)"
                   class="alert alert-danger">
   
@@ -269,7 +281,12 @@
   
                   <div class="row">
                       <div class="col-md-6"> <label class="btn btn-secondary" (click)="add.resetForm({})"> Reset </label> </div>
-                      <div class="col-md-6 d-flex justify-content-end" > <button type="submit" class="btn btn-primary" [disabled]="add.invalid" data-dismiss="modal" (click)="adicionar()"> Salvar </button> </div>
+                      <div class="col-md-6 d-flex justify-content-end" > 
+                        <button type="submit" class="btn btn-primary" 
+                        [disabled]="add.invalid"
+                        [disabled]="addIpOrigem" 
+                        data-dismiss="modal" 
+                        (click)="adicionar()"> Salvar </button> </div>
                   </div>
                 </form>
                 <!--  fim - Form -->

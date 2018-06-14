@@ -35,6 +35,11 @@ export class PainelComponent implements OnInit {
   public editar:number
   //pegar indice que vai ser editado
 
+  public editarIpOrigem:boolean = false
+  public editarIpDestino:boolean = false
+  public addIpOrigem:boolean = false
+  public addIpDestino:boolean = false
+
   public mostrar:Regra = this.painel[this.editar]
   /* Metodos */
   
@@ -42,6 +47,91 @@ export class PainelComponent implements OnInit {
    
   }
   ngOnInit() {
+  }
+
+  public editarValidOrigem( ip:Event ):void{
+    let value = (<HTMLInputElement>ip.target).value
+
+    let teste = value.split(".")
+
+    if( teste.length == 4 ){
+      for(let i = 0; i < 4; i++){
+
+        let num = parseInt(teste[i])
+        console.log(num)
+        if(num >=1 && num <=255){
+          this.editarIpOrigem = false
+        }
+        else {
+          this.editarIpOrigem = true
+          break
+        }
+      }
+    }
+  }
+
+  public editarValidDestino( ip:Event ):void{
+    let value = (<HTMLInputElement>ip.target).value
+
+    let teste = value.split(".")
+
+    if( teste.length == 4 ){
+
+      for(let i = 0; i < 4; i++){
+
+        let num = parseInt(teste[i])
+        console.log(num)
+        if(num >=1 && num <=255){
+          this.editarIpDestino = false
+        }
+        else {
+          this.editarIpDestino = true
+          break
+        }
+      }
+    }
+  }
+
+  public addValidOrigem( ip:Event ):void{
+    let value = (<HTMLInputElement>ip.target).value
+
+    let teste = value.split(".")
+    if( teste.length == 4 ){
+
+      for(let i = 0; i < 4; i++){
+
+        let num = parseInt(teste[i])
+        console.log(num)
+        if(num >=1 && num <=255){
+          this.addIpOrigem = false
+        }
+        else {
+          this.addIpOrigem = true
+          break
+        }
+      }
+    }
+  }
+
+  public addValidDestino( ip:Event ):void{
+    let value = (<HTMLInputElement>ip.target).value
+
+    let teste = value.split(".")
+
+    if( teste.length == 4 ){
+      for(let i = 0; i < 4; i++){
+
+        let num = parseInt(teste[i])
+        console.log(num)
+        if(num >=1 && num <=255){
+          this.addIpDestino = false
+        }
+        else {
+          this.addIpDestino = true
+          break
+        }
+      }
+    }
   }
 
   public del(i:number):void{
@@ -120,7 +210,12 @@ export class PainelComponent implements OnInit {
 
     reader.onload = function(){
       me.fileText = reader.result;
-      me.fileText = me.fileText.split( ',');
+      console.log(me.fileText)
+      me.fileText = me.fileText.replace("\r", "")//retira quebra linha
+      me.fileText = me.fileText.replace("\t", "")//retira quebra linha
+      me.fileText = me.fileText.replace("\n", "")//retira quebra linha
+      me.fileText = me.fileText.replace(/[\\"]/g, '')//retira ""
+      me.fileText = me.fileText.split( ',')//cria um array
       console.log(me.fileText)
 
       

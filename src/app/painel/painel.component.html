@@ -19,7 +19,7 @@
           <div class="col-md-12 d-flex justify-content-center">
             <tr id="sortable">
                 <div *ngFor="let item of painel; index as i">
-                <th scope="row"></th>
+                <th scope="row">{{i}}</th>
                 <td>{{item.ipOrigem}}</td>
                 <td>{{item.ipDestino}}</td>
                 <td>{{item.protocolo}}</td>
@@ -49,6 +49,8 @@
                                         <input type="text" class="form-control" 
                                         id="ipOrigem" name="ipOrigem" 
                                         ngModel required 
+                                        maxlength="15"
+                                        onkeypress="mascara(this)"                                
                                         #ipOrigem ="ngModel">
                                     </div>
                                     
@@ -58,12 +60,19 @@
                                     <div *ngIf="ipOrigem.errors.required">
                                       Campo não pode estar em branco.
                                     </div>
+
+                                    <div *ngIf="name.errors.forbiddenName">
+                                      Name cannot be Bob.
+                                    </div>
+                                    
                                     </div>
       
                                     <div class="form-group">
                                         <label for="ipDestino">Ip destino</label>
                                         <input type="text" class="form-control" 
-                                        id="ipDestino" name="ipDestino" 
+                                        id="ipDestino" name="ipDestino"
+                                        maxlength="15"
+                                        onkeypress="mascara(this)" 
                                         ngModel required 
                                         #ipDestino ="ngModel">
                                     </div>
@@ -173,6 +182,8 @@
                     <input type="text" class="form-control" 
                     id="ipOrigem" name="ipOrigem" 
                     ngModel required 
+                    maxlength="15"
+                    onkeypress="mascara(this)"
                     #ipOrigem ="ngModel">
                 </div>
                 
@@ -189,6 +200,8 @@
                     <input type="text" class="form-control" 
                     id="ipDestino" name="ipDestino" 
                     ngModel required 
+                    maxlength="15"
+                    onkeypress="mascara(this)"
                     #ipDestino ="ngModel">
                 </div>
   

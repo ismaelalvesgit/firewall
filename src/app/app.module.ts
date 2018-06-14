@@ -4,6 +4,9 @@ import { FormsModule } from'@angular/forms';
 import { AppComponent } from './app.component';
 import { PainelComponent } from './painel/painel.component';
 import { RodapeComponent } from './rodape/rodape.component';
+import { EditarComponent } from './editar/editar.component';
+import { DeletarComponent } from './deletar/deletar.component';
+import { AdicionarComponent } from './adicionar/adicionar.component';
 
 
 
@@ -11,7 +14,10 @@ import { RodapeComponent } from './rodape/rodape.component';
   declarations: [
     AppComponent,
     PainelComponent,
-    RodapeComponent
+    RodapeComponent,
+    EditarComponent,
+    DeletarComponent,
+    AdicionarComponent
   ],
   imports: [
     BrowserModule,

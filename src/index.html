@@ -7,6 +7,17 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    function mascara(telefone){ 
+        if(telefone.value.length == 3)
+        telefone.value =  telefone.value + '.' ; //quando começamos a digitar, o script irá inserir um parênteses no começo do campo.
+        if(telefone.value.length == 7)
+        telefone.value = telefone.value + '.'; //quando o campo já tiver 3 caracteres (um parênteses e 3 números) o script irá inserir mais um parênteses, fechando assim o código de área.
+        if(telefone.value.length == 11)
+        telefone.value = telefone.value + '.'; //quando o campo já tiver 11 caracteres, o script irá inserir um tracinho, para melhor visualização do telefone.
+  
+}
+</script>
 </head>
 <body>
   <app-root></app-root>

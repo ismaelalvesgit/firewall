@@ -48,11 +48,13 @@ export class PainelComponent implements OnInit {
 
     this.painel.splice(i , 1)
   }
+  // metodo de deletar
 
   public getEditar(i:number):void{
    
     this.editar = i
   }
+  //pegar o indice
 
   public editarSalva(){
 
@@ -67,7 +69,6 @@ export class PainelComponent implements OnInit {
     let entrada = this.formEditar.value.entrada
 
 
-
     this.painel[this.editar].ipOrigem = ipOrigem
 
     this.painel[this.editar].ipDestino = ipDestino
@@ -78,6 +79,7 @@ export class PainelComponent implements OnInit {
 
     this.painel[this.editar].entrada = entrada
   }
+  // salvar a edição
 
   public adicionar(){
 
@@ -95,6 +97,7 @@ export class PainelComponent implements OnInit {
 
     this.painel[indice] = new Regra(ipOrigem, ipDestino, protocolo, porta, entrada )
   }
+  //adicionar um nova regra
 
   public export():void{
 
@@ -105,7 +108,8 @@ export class PainelComponent implements OnInit {
      
     new Angular2Txt(this.painel, 'PACOTE999');
   }
-
+  //exporta arquivo texto
+  
   public getFile(event):void{
 
     let reader = new FileReader(); 
@@ -122,6 +126,7 @@ export class PainelComponent implements OnInit {
       
     }
   }
+  //pegar arquivo importado
 
   public verifiacarRegras():void{
   
@@ -173,9 +178,10 @@ export class PainelComponent implements OnInit {
         alert('pacote passou pelas regras')
       }else{
 
-        alert('pacote não passou pelas regras')
+        alert( 'pacote não passou pelas regras')
         break
       }
     }    
   }
+  //Faz a verificação se a regra que esta no painel esta igual ao pacote
 }

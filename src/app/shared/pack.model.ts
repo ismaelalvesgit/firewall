@@ -6,11 +6,13 @@ export class Pack{
 
         public ipDestino:string,
 
+        public destino:string,
+
         public protocolo:string,
 
         public porta:string,
 
-        public entrada:string,
+        public dados:string
 
     ){
 
